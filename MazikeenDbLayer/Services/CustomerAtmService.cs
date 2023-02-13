@@ -1,7 +1,7 @@
-﻿using System.Data;
-using MazikeenDbLayer.Interfaces;
+﻿using MazikeenDbLayer.Interfaces;
 using MazikeenDbLayer.Model;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace MazikeenDbLayer.Services;
 
@@ -9,12 +9,12 @@ public class CustomerAtmService : ICustomerAtmService
 {
     private readonly AtmDbContext _atmDbContext;
     //private bool _disposed;
-    
+
     public CustomerAtmService(AtmDbContext atmDbContext)
     {
         _atmDbContext = atmDbContext;
     }
-    
+
     public async Task<int> AddCustomer(CustomerModel customer)
     {
         var sqlConn = await AtmDbContext.OpenConnection();
@@ -24,7 +24,7 @@ public class CustomerAtmService : ICustomerAtmService
                                    $"SELECT CAST(SCOPE_IDENTITY() AS BIGINT)";
 
         await using var command = new SqlCommand(insertQuery, sqlConn);
-            
+
         command.Parameters.AddRange(new SqlParameter[]
         {
             new()
@@ -75,7 +75,7 @@ public class CustomerAtmService : ICustomerAtmService
                 Direction = ParameterDirection.Input,
                 Size = 50
             }
-            
+
         });
         var customerId = (int)(await command.ExecuteScalarAsync() ?? throw new InvalidOperationException());
         return customerId;
@@ -87,7 +87,7 @@ public class CustomerAtmService : ICustomerAtmService
         const string insertQuery = $"UPDATE Customer SET firstname = @firstname, lastname = @lastname " +
                                    $"WHERE customer_id = @customer_id";
         await using var command = new SqlCommand(insertQuery, sqlConn);
-        
+
         command.Parameters.AddRange(new SqlParameter[]
         {
             new()
@@ -121,10 +121,10 @@ public class CustomerAtmService : ICustomerAtmService
 
     public async Task<bool> DeleteCustomer(int id)
     {
-var sqlConn = await AtmDbContext.OpenConnection();
+        var sqlConn = await AtmDbContext.OpenConnection();
         const string insertQuery = $"DELETE FROM Customer WHERE customer_id = @customer_id";
         await using var command = new SqlCommand(insertQuery, sqlConn);
-        
+
         command.Parameters.AddRange(new SqlParameter[]
         {
             new()
@@ -145,7 +145,7 @@ var sqlConn = await AtmDbContext.OpenConnection();
         var sqlConn = await AtmDbContext.OpenConnection();
         const string getCustomerQuery = $"SELECT * FROM Customer WHERE customer_id = @customer_id";
         await using var command = new SqlCommand(getCustomerQuery, sqlConn);
-        
+
         command.Parameters.AddRange(new SqlParameter[]
         {
             new ()

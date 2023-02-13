@@ -1,7 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
 using System.Data;
-using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
 
 namespace MazikeenDbLayer;
 
@@ -13,14 +11,14 @@ public sealed class AtmDbContext : IDisposable
 
     private static SqlConnection _dbConnection = null!;
 
-    public AtmDbContext():this(@"Data Source=WORKSPACE\SQLEXPRESS;Initial Catalog=ATM;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
+    public AtmDbContext() : this(@"Data Source=WORKSPACE\SQLEXPRESS;Initial Catalog=ATM;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
     {
-            
+
     }
 
     private AtmDbContext(string connString)
         => _connString = connString;
-    
+
 
     public static async Task<SqlConnection> OpenConnection()
     {
@@ -42,7 +40,7 @@ public sealed class AtmDbContext : IDisposable
     {
         if (_disposed)
         {
-            return; 
+            return;
         }
 
         if (disposing)

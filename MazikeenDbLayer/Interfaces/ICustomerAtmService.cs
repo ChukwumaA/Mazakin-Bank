@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using MazikeenDbLayer.Model;
+﻿using MazikeenDbLayer.Model;
 
 namespace MazikeenDbLayer.Interfaces;
 
