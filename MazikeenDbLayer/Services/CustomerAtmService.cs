@@ -8,7 +8,6 @@ namespace MazikeenDbLayer.Services;
 public class CustomerAtmService : ICustomerAtmService
 {
     private readonly AtmDbContext _atmDbContext;
-    //private bool _disposed;
 
     public CustomerAtmService(AtmDbContext atmDbContext)
     {
